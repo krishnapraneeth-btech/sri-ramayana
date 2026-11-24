@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Sri Ramayana — The Eternal Epic</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- TOP NAVIGATION -->
+  <header class="top-nav">
+    <div class="top-nav-inner">
+      <div class="brand">
+        <img src="images/emblem.jpg" alt="Sri Ramayana Emblem" class="brand-icon" />
+        <div>
+          <div class="brand-title" id="uiAppTitle">Sri Ramayana</div>
+          <div class="brand-sub" id="uiAppSubtitle">The Eternal Epic • 14 Full Cinematic Episodes</div>
+        </div>
+      </div>
+
+      <div class="lang-strip" id="homeLangBar" aria-label="Language Selector">
+        <button class="lang-pill" data-lang="te">తెలుగు</button>
+        <button class="lang-pill" data-lang="hi">हिन्दी</button>
+        <button class="lang-pill active" data-lang="en">English</button>
+        <button class="lang-pill" data-lang="ta">தமிழ்</button>
+        <button class="lang-pill" data-lang="ml">മലയാളം</button>
+      </div>
+
+      <div class="nav-actions">
+        <button class="icon-btn" id="voiceHelpBtn">🔊 <span id="uiVoiceHelpBtn">Voice Pack Help</span></button>
+        <a href="/Ramayana_Epic.apk" download="Ramayana_Epic.apk" class="apk-btn" id="downloadApkLink">
+          ⬇ <span id="uiDownloadApkBtn">Get Android APK</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- HOME LIBRARY VIEW -->
+  <main class="main-wrap" id="homeView">
+    <section class="hero-card">
+      <img src="images/scene_01_yagna.jpg" alt="Ayodhya Dawn" class="hero-bg" />
+      <div class="hero-overlay">
+        <span class="hero-badge" id="uiEpisodesCount">14 Episodes • 15 Min Each</span>
+        <h1 class="hero-title" id="uiHeroTitle">Sri Ramayana</h1>
+        <p class="hero-desc" id="uiHeroDesc"></p>
+      </div>
+    </section>
+
+    <div class="kanda-tabs" id="kandaTabs"></div>
+    <section class="episodes-grid" id="episodesGrid"></section>
+  </main>
+
+  <!-- IMMERSIVE CINEMA PLAYER VIEW -->
+  <section class="player-view hidden" id="playerView">
+    <div class="stage-wrap">
+      <img id="stageImgA" class="stage-img" alt="Ramayana Scene" />
+      <img id="stageImgB" class="stage-img" alt="Ramayana Scene Next" />
+      <div class="stage-vignette"></div>
+      <canvas id="vfxCanvas"></canvas>
+
+      <div class="player-top">
+        <button class="icon-btn" id="backHomeBtn">← <span id="uiBackToLib">Episodes</span></button>
+        <div class="player-ep-meta">
+          <div class="player-ep-title" id="playerEpTitle">Episode</div>
+          <div class="player-scene-title" id="playerSceneTitle">Scene 1 of 12</div>
+        </div>
+        <div class="lang-strip" id="playerLangBar">
+          <button class="lang-pill" data-lang="te">తెలుగు</button>
+          <button class="lang-pill" data-lang="hi">हिन्दी</button>
+          <button class="lang-pill" data-lang="en">English</button>
+          <button class="lang-pill" data-lang="ta">தமிழ்</button>
+          <button class="lang-pill" data-lang="ml">മലയാളം</button>
+        </div>
+        <button class="icon-btn" id="playerVoiceHelpBtn">🔊</button>
+      </div>
+
+      <div class="tts-toast hidden" id="ttsToast"></div>
+
+      <div class="captions-overlay" id="captionsOverlay">
+        <div class="shloka-box hidden" id="shlokaBox">
+          <div class="shloka-sa" id="shlokaSa"></div>
+          <div class="shloka-tr" id="shlokaTr"></div>
+        </div>
+        <div class="narration-box" id="narrationBox"></div>
+      </div>
+    </div>
+
+    <footer class="player-dock">
+      <div class="dock-inner">
+        <div class="timeline-row">
+          <span class="time-txt" id="elapsedTimeTxt">00:00</span>
+          <div class="scene-dots" id="sceneDots"></div>
+          <span class="time-txt" id="totalTimeTxt">15:00</span>
+        </div>
+
+        <div class="controls-row">
+          <div class="transport-group">
+            <button class="ctrl-btn" id="prevSceneBtn">⏮</button>
+            <button class="play-main-btn" id="playPauseBtn">▶</button>
+            <button class="ctrl-btn" id="nextSceneBtn">⏭</button>
+            <button class="ctrl-btn" id="nextEpBtn">Next Ep ⏩</button>
+          </div>
+
+          <div class="mix-group">
+            <label class="slider-pill">
+              🎵 <span id="uiBgmLabel">Music</span>
+              <input type="range" id="bgmVolSlider" min="0" max="100" value="55" />
+            </label>
+            <label class="slider-pill">
+              🗣 <span id="uiVoiceLabel">Voice</span>
+              <input type="checkbox" id="voiceToggle" checked />
+            </label>
+            <label class="slider-pill">
+              ⚡ <span id="uiSpeedLabel">Speed</span>
+              <select id="speedSelect" class="select-pill">
+                <option value="0.78">0.8x</option>
+                <option value="0.88" selected>0.9x</option>
+                <option value="1.0">1.0x</option>
+                <option value="1.15">1.15x</option>
+              </select>
+            </label>
+            <button class="ctrl-btn active" id="subtitlesToggleBtn">CC</button>
+            <button class="ctrl-btn active" id="autoNextToggleBtn">Auto</button>
+          </div>
+        </div>
+      </div>
+    </footer>
+  </section>
+
+  <!-- VOICE HELP MODAL -->
+  <div class="modal-backdrop hidden" id="voiceModal">
+    <div class="modal-card">
+      <h2 class="modal-title" id="uiModalTitle">Voice Engine Ready</h2>
+      <p class="modal-desc" id="uiModalDesc"></p>
+      <div class="modal-actions">
+        <button class="icon-btn hidden" id="openTtsSettingsBtn">⚙ <span id="uiOpenTtsBtn">Open Device Voice Settings</span></button>
+        <button class="ep-play-btn" style="width:auto; padding:8px 18px;" id="closeVoiceModalBtn">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="i18n.js"></script>
+  <script src="visualizer.js"></script>
+  <script src="episodes/ep01_02.js"></script>
+  <script src="episodes/ep03_04.js"></script>
+  <script src="episodes/ep05_06.js"></script>
+  <script src="episodes/ep07_08.js"></script>
+  <script src="episodes/ep09_10.js"></script>
+  <script src="episodes/ep11_12.js"></script>
+  <script src="episodes/ep13_14.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

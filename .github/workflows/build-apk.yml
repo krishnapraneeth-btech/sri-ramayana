@@ -1,0 +1,32 @@
+name: Build Sri Ramayana APK
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Ensure Android SDK Platform 34 & Build-Tools 34.0.0
+        run: |
+          SDK_DIR="${ANDROID_HOME:-${ANDROID_SDK_ROOT:-/usr/local/lib/android/sdk}}"
+          echo "ANDROID_HOME=$SDK_DIR" >> "$GITHUB_ENV"
+          if [ ! -f "$SDK_DIR/platforms/android-34/android.jar" ] || [ ! -d "$SDK_DIR/build-tools/34.0.0" ]; then
+            yes | "$SDK_DIR/cmdline-tools/latest/bin/sdkmanager" "platforms;android-34" "build-tools;34.0.0"
+          fi
+
+      - name: Build signed APK
+        run: bash scripts/build_apk.sh build/Ramayana_Epic.apk
+
+      - name: Upload Ramayana_Epic.apk artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Ramayana_Epic.apk
+          path: build/Ramayana_Epic.apk

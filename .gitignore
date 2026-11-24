@@ -1,0 +1,14 @@
+# Build outputs & signing keys
+build/
+dist/
+out/
+*.aab
+*.idsig
+*.jks
+*.keystore
+
+# Python & OS caches
+__pycache__/
+*.pyc
+.DS_Store
+Thumbs.db
